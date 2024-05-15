@@ -8,7 +8,7 @@ async function main() {
     update: {},
     create: {
       email: "test@testsson.se",
-      name: "Test",
+      name: "Jonatan",
       posts: {
         create: [
           {

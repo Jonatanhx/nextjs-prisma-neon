@@ -2,19 +2,17 @@
 
 import { revalidatePath } from "next/cache";
 import { db } from "../../../prisma/db";
+import { PostCreate } from "../validations/post";
 
-export async function savePost(formData: FormData) {
-  console.log("savePost", formData.get("title"));
-  const title = formData.get("title")?.toString() || "Default Title";
-  const content = formData.get("content")?.toString();
+export async function savePost(postData: PostCreate) {
   const post = await db.post.create({
     data: {
-      title,
-      content,
+      title: postData.title,
+      content: postData.content,
       authorId: 1,
     },
   });
   console.log("Post created:", post);
 
-  await revalidatePath("/");
+  revalidatePath("/");
 }
